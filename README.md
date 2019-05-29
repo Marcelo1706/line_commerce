@@ -1,2 +1,2 @@
-# sistema_php_ventas
+# line_commerce
 Sistema de Ventas para proyecto PHP ITCA
