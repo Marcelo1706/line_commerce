@@ -60,7 +60,7 @@ CREATE TABLE producto(
     precio decimal(15,2) not null, 
     stock int(11) not null,
     imagen varchar(255) not null,
-    vendedor int(11) not null,
+    vendedor varchar(50) not null,
     id_sub int(11) not null,
     creado datetime not null default NOW(),
     modificado datetime not null default NOW(),
@@ -71,7 +71,7 @@ CREATE TABLE producto(
 
 CREATE TABLE pedido (
     id_pedido int(11) not null auto_increment,
-    comprador int(11) not null,
+    comprador varchar(50) not null,
     fecha date not null,
     estado tinyint not null, 
     primary key pk_pedido(id_pedido),
