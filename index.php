@@ -258,4 +258,5 @@ require_once("includes/menu_principal.php");
 </div>
 <?php
 require_once("includes/footer.php");
+require_once("includes/scripts.php");
 ?>
