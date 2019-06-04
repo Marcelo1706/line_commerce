@@ -7,6 +7,8 @@ CREATE TABLE administrador(
     primary key pk_admin(usuario)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO administrador(usuario,clave) VALUES ("admin","ZitkSHRvbVlPTVl4VFhOaFRSZHhYdz09Ojq2QAYEC4h4m8576tXOP4MI");
+
 CREATE TABLE vendedor(
     usuario varchar(50) not null unique,
     clave varchar(250) not null,
@@ -25,12 +27,7 @@ CREATE TABLE cliente(
     correo_electronico varchar(250) not null,
     nombre varchar(100) not null,
     apellido varchar(100) not null, 
-    tipo_identificacion int(11) not null, 
-    num_identificacion varchar(25) not null,
     telefono varchar(20) not null,
-    verificacion tinyint not null,
-    foto_perfil varchar(255) not null,
-    foto_verificacion varchar(255) not null,
     primary key pk_cliente(usuario)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

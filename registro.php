@@ -2,12 +2,6 @@
 require_once("includes/header.php");
 ?>
 <style>
-    /*
- * Specific styles of signin component
- */
-    /*
- * General styles
- */
     body,
     html {
         height: 100%;
@@ -17,27 +11,12 @@ require_once("includes/header.php");
 
     .auto {
         height: auto !important;
-    }
-
-    .btn {
-        font-weight: 700;
-        height: 36px;
-        -moz-user-select: none;
-        -webkit-user-select: none;
-        user-select: none;
-        cursor: default;
-    }
-
-    /*
- * Card component
- */
+    } 
     .card {
         background-color: #F7F7F7;
-        /* just in case there no content*/
         padding: 20px 25px 30px;
         margin: 0 auto 25px;
         margin-top: 50px;
-        /* shadows and rounded borders */
         -moz-border-radius: 2px;
         -webkit-border-radius: 2px;
         border-radius: 2px;
@@ -46,103 +25,12 @@ require_once("includes/header.php");
         box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     }
 
-    .profile-img-card {
-        width: 96px;
-        height: 96px;
-        margin: 0 auto 10px;
-        display: block;
-        /* -moz-border-radius: 50%;
-    -webkit-border-radius: 50%;
-    border-radius: 50%; */
-    }
-
-    /*
- * Form styles
- */
     .profile-name-card {
         font-size: 16px;
         font-weight: bold;
         text-align: center;
         margin: 10px 0 0;
         min-height: 1em;
-    }
-
-    .reauth-email {
-        display: block;
-        color: #404040;
-        line-height: 2;
-        margin-bottom: 10px;
-        font-size: 14px;
-        text-align: center;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        -moz-box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-    }
-
-    .form-signin #inputEmail,
-    .form-signin #inputPassword {
-        direction: ltr;
-        height: 44px;
-        font-size: 16px;
-    }
-
-    .form-signin input[type=email],
-    .form-signin input[type=password],
-    .form-signin input[type=text],
-    .form-signin select,
-    .form-signin button {
-        width: 100%;
-        display: block;
-        margin-bottom: 10px;
-        z-index: 1;
-        position: relative;
-        -moz-box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-    }
-
-    .form-signin .form-control:focus {
-        border-color: rgb(104, 145, 162);
-        outline: 0;
-        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgb(104, 145, 162);
-        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgb(104, 145, 162);
-    }
-
-    .btn.btn-signin {
-        /*background-color: #4d90fe; */
-        background-color: rgb(104, 145, 162);
-        /* background-color: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));*/
-        padding: 0px;
-        font-weight: 700;
-        font-size: 14px;
-        height: 36px;
-        -moz-border-radius: 3px;
-        -webkit-border-radius: 3px;
-        border-radius: 3px;
-        border: none;
-        -o-transition: all 0.218s;
-        -moz-transition: all 0.218s;
-        -webkit-transition: all 0.218s;
-        transition: all 0.218s;
-    }
-
-    .btn.btn-signin:hover,
-    .btn.btn-signin:active,
-    .btn.btn-signin:focus {
-        background-color: rgb(12, 97, 33);
-    }
-
-    .forgot-password {
-        color: rgb(104, 145, 162);
-    }
-
-    .forgot-password:hover,
-    .forgot-password:active,
-    .forgot-password:focus {
-        color: rgb(12, 97, 33);
     }
 </style>
 <br>
@@ -186,13 +74,48 @@ require_once("includes/header.php");
                 <p id="profile-name" class="profile-name-card">Registro de Clientes</p>
                 <div class="container">
                     <div class="row justify-content-md-center">
-                        
+                    <div class="col-sm-12">
+                            <form>
+                                <div class="form-group">
+                                    <label for="usuario_c">Usuario</label>
+                                    <input type="text" class="form-control" id="usuario_c" placeholder="Nombre de Usuario" maxlength="50" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password1_c">Contraseña</label>
+                                    <input type="password" class="form-control" id="password1_c" placeholder="Contraseña" maxlength="20" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password2_c">Repetir Contraseña</label>
+                                    <input type="password" class="form-control" id="password2_c" placeholder="Repetir Contraseña" maxlength="20" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="nombres_c">Nombres</label>
+                                    <input type="text" class="form-control" id="nombres_c" placeholder="Nombres" maxlength="100" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="apellidos_c">Apellidos</label>
+                                    <input type="text" class="form-control" id="apellidos_c" placeholder="Apellidos" maxlength="100" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email_c">Correo Electrónico</label>
+                                    <input type="mail" class="form-control" id="email_c" placeholder="alguien@example.com" maxlength="100" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="telefono_c">Teléfono</label>
+                                    <input type="text" class="form-control" id="telefono_c" placeholder="Teléfono" maxlength="15" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" value="Registrarse" name="enviar" class="btn btn-primary btn-block">
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="text-center">
                 <button class="btn btn-primary" onclick="siguiente_cuadro('volver')" >Volver</button>
             </div>
+            <br>
         </div>
     </div>
     <!-- Registro de Negocios -->
@@ -234,7 +157,7 @@ require_once("includes/header.php");
                                 </div>
                                 <div class="form-group">
                                     <label for="telefono">Teléfono</label>
-                                    <input type="text" class="form-control" id="negocio" placeholder="Teléfono" maxlength="15" required>
+                                    <input type="text" class="form-control" id="telefono" placeholder="Teléfono" maxlength="15" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="foto">Foto de Perfil</label>
@@ -253,6 +176,9 @@ require_once("includes/header.php");
             </div>
             <br>
         </div>
+    </div>
+    <div class="text-center">
+        <a href="index.php" class="btn btn-primary">Volver al Inicio</a>
     </div>
 </div>
 <?php
