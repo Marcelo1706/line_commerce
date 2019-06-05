@@ -1,14 +1,7 @@
 <?php
 require_once("includes/header.php");
-// require_once("includes/menu_principal.php");
 ?>
 <style>
-    /*
- * Specific styles of signin component
- */
-    /*
- * General styles
- */
     body,
     html {
         height: 100%;
@@ -30,16 +23,11 @@ require_once("includes/header.php");
         cursor: default;
     }
 
-    /*
- * Card component
- */
     .card {
         background-color: #F7F7F7;
-        /* just in case there no content*/
         padding: 20px 25px 30px;
         margin: 0 auto 25px;
         margin-top: 50px;
-        /* shadows and rounded borders */
         -moz-border-radius: 2px;
         -webkit-border-radius: 2px;
         border-radius: 2px;
@@ -53,14 +41,8 @@ require_once("includes/header.php");
         height: 96px;
         margin: 0 auto 10px;
         display: block;
-        /* -moz-border-radius: 50%;
-    -webkit-border-radius: 50%;
-    border-radius: 50%; */
     }
 
-    /*
- * Form styles
- */
     .profile-name-card {
         font-size: 16px;
         font-weight: bold;
@@ -114,9 +96,7 @@ require_once("includes/header.php");
     }
 
     .btn.btn-signin {
-        /*background-color: #4d90fe; */
         background-color: rgb(104, 145, 162);
-        /* background-color: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));*/
         padding: 0px;
         font-weight: 700;
         font-size: 14px;
@@ -151,20 +131,35 @@ require_once("includes/header.php");
 <br>
 <div class="container">
     <div class="card card-container">
-        <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
         <img id="profile-img" class="profile-img-card" src="img/logo.png" />
         <p id="profile-name" class="profile-name-card">Acceso Administrativo</p>
-        <form class="form-signin">
+        <form class="form-signin" action="" method="post" id="login_admin">
             <span id="reauth-email" class="reauth-email"></span>
-            <input type="text" id="inputEmail" class="form-control" placeholder="Nombre de Usuario" required autofocus>
-            <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required>
-            <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Iniciar Sesión</button>
-        </form><!-- /form -->
-    </div><!-- /card-container -->
+            <input type="text" name="usuario" id="usuario" class="form-control" placeholder="Nombre de Usuario" required autofocus>
+            <input type="password" name="password" id="password" class="form-control" placeholder="Contraseña" required>
+            <input class="btn btn-lg btn-primary btn-block btn-signin" type="submit" value="Iniciar Sesión">
+        </form>
+    </div>
     <div class="text-center">
         <a href="index.php" class="btn btn-primary">Volver al Inicio</a>
     </div>
-</div><!-- /container -->
+</div>
+<div id="resultado">
+
+</div>
 <?php
 require_once("includes/scripts.php");
 ?>
+<script language="javascript">
+$(document).on("submit","#login_admin",function(event){
+    event.preventDefault();
+    $.ajax({
+        type: "post",
+        url: "clases/ajax.php?request=admin_login",
+        data: $("#login_admin").serialize(),
+        success: function(evt){
+            $("#resultado").html(evt)
+        }
+    })
+})
+</script>

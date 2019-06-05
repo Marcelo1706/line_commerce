@@ -105,5 +105,25 @@ class baseDatos {
             die();   
         }
     }
+
+    public function login($rol,$usuario,$clave){
+        $tabla = "";
+        switch($rol){
+            case 'admin':
+                $tabla = 'administrador';
+            break;
+            case 'negocio':
+                $tabla = 'vendedor';
+            break;
+            case 'cliente':
+                $tabla = 'cliente';
+            break;
+        }
+        $resultado = $this->leer($tabla,"usuario,clave",array("usuario" => $usuario));
+        print_r($resultado);
+        // if(count($resultado) == 1){
+            
+        // }
+    }
 }
 ?>

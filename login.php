@@ -1,6 +1,8 @@
 <?php
 require_once("includes/header.php");
 require_once("clases/criptografia.php");
+require_once("clases/baseDatos.php");
+$objBD = new baseDatos("localhost","line_commerce","root","mysql");
 ?>
 <style>
 body, html {
@@ -133,10 +135,10 @@ body, html {
     <div class="card card-container">
         <img id="profile-img" class="profile-img-card" src="img/logo.png" />
         <p id="profile-name" class="profile-name-card"></p>
-        <form class="form-signin">
+        <form class="form-signin" action="" method="post">
             <span id="reauth-email" class="reauth-email"></span>
-            <input type="text" id="usuario" class="form-control" placeholder="Nombre de Usuario" required autofocus>
-            <input type="password" id="password" class="form-control" placeholder="Contraseña" required>
+            <input type="text" name="usuario" id="usuario" class="form-control" placeholder="Nombre de Usuario" required autofocus>
+            <input type="password" name="password" id="password" class="form-control" placeholder="Contraseña" required>
             <select class="form-control" id="tipo_usuario" required>
                 <option value="">-- Tipo de Usuario --</option>
                 <option value="cliente">Cliente</option>
