@@ -1,8 +1,9 @@
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="js/jquery.min.js"></script>
-<script src="js/popper.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
+<script src="/line_commerce/js/jquery.min.js"></script>
+<script src="/line_commerce/js/popper.min.js"></script>
+<script src="/line_commerce/js/bootstrap.min.js"></script>
+<script src="/line_commerce/js/sweetalert.min.js"></script>
 <script language="javascript">
     $('.dropdown-menu a.dropdown-toggle').on('click', function (e) {
         if (!$(this).next().hasClass('show')) {

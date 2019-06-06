@@ -120,10 +120,18 @@ class baseDatos {
             break;
         }
         $resultado = $this->leer($tabla,"usuario,clave",array("usuario" => $usuario));
-        print_r($resultado);
-        // if(count($resultado) == 1){
-            
-        // }
+        if(count($resultado) > 0){
+            $dataUsuario = $resultado[0];
+            if(descifrar($dataUsuario['clave']) == $clave){
+                return "1";
+            }else{
+                return "2"; //Contraseña Incorrecta
+            }
+        }else{
+            return "3"; //El usuario no existe
+        }
+        
+        
     }
 }
 ?>

@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="icon" type="image/png" href="img/icono.png">
+    <link rel="stylesheet" href="/line_commerce/css/bootstrap.min.css">
+    <link rel="icon" type="image/png" href="/line_commerce/img/icono.png">
 
     <title>Line Commerce</title>
     <style>

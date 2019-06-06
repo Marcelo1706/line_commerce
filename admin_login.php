@@ -158,7 +158,28 @@ $(document).on("submit","#login_admin",function(event){
         url: "clases/ajax.php?request=admin_login",
         data: $("#login_admin").serialize(),
         success: function(evt){
-            $("#resultado").html(evt)
+            switch(evt){
+                case '1':
+                    window.location = "admin/index.php";
+                case '2':
+                    swal({
+                        icon: "warning",
+                        text: "Su contraseña es incorrecta"
+                    })
+                break;
+                case '3':
+                    swal({
+                        icon: "warning",
+                        text: "El usuario no existe o no pertenece a este rol"
+                    })
+                break;
+                default:
+                    swal({
+                        icon: "error",
+                        text: "Error: "+evt
+                    })
+                break;
+            }
         }
     })
 })
