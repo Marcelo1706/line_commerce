@@ -135,22 +135,56 @@ body, html {
     <div class="card card-container">
         <img id="profile-img" class="profile-img-card" src="img/logo.png" />
         <p id="profile-name" class="profile-name-card"></p>
-        <form class="form-signin" action="" method="post">
+        <form class="form-signin" action="" method="post" id="form_login">
             <span id="reauth-email" class="reauth-email"></span>
             <input type="text" name="usuario" id="usuario" class="form-control" placeholder="Nombre de Usuario" required autofocus>
             <input type="password" name="password" id="password" class="form-control" placeholder="Contraseña" required>
             <select class="form-control" id="tipo_usuario" required>
                 <option value="">-- Tipo de Usuario --</option>
                 <option value="cliente">Cliente</option>
-                <option value="negocio">Negocio</option>
+                <option value="vendedor">Negocio</option>
                 </select>
             <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Iniciar Sesión</button>
         </form>
-        <a href="#" class="forgot-password">
-            ¿Olvidó la contraseña?
-        </a>
     </div>
     <div class="text-center">
         <a href="index.php" class="btn btn-primary">Volver al Inicio</a>
     </div>
 </div>
+<?php require_once("includes/scripts.php") ?>
+<script language="javascript">
+$(document).ready(function(){
+    $("#form_login").on("submit",function(e){
+        e.preventDefault();
+
+        var fd = new FormData();
+        fd.append("usuario",$("#usuario").val());
+        fd.append("clave",$("#password").val());
+        fd.append("tipo_usuario",$("#tipo_usuario").val());
+        $.ajax({
+            url: 'admin/ajax.php?request=login',
+            type: 'post',
+            data: fd,
+            contentType: false,
+            processData: false,
+            success: function(response){
+                if(response == '1'){
+                    swal({
+                        icon: "warning",
+                        text: "El usuario no existe o no corresponde a los privilegios seleccionados"
+                    })
+                }else{
+                    if(response == '2'){
+                        swal({
+                            icon: "warning",
+                            text: "La contraseña es incorrecta"
+                        })
+                    }else{
+                        window.location = $("#tipo_usuario").val()+"/index.php";
+                    }
+                }
+            }
+        });
+    })
+})
+</script>

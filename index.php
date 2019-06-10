@@ -1,6 +1,10 @@
 <?php
 require_once("includes/header.php");
-require_once("includes/menu_principal.php");
+require_once("includes/menu_principal.php");+
+require_once("clases/baseDatos.php");
+$objBD = new baseDatos("localhost","line_commerce","root","mysql");
+$cats_p = $objBD->leer("categoria","*",null,"ORDER BY popularidad DESC LIMIT 4");
+$cats = $objBD->leer("categoria","*");
 ?>
 <div class="jumbotron jumbotron-fluid banner mt-5">
     <div class="container">
@@ -24,54 +28,25 @@ require_once("includes/menu_principal.php");
         </div>
     </div>
     <div class="row justify-content-md-center">
-        <div class="col-sm-3 my-2">
-            <div class="card text-center">
-                <div class="card-body">
-                    <img src="https://bulma.io/images/placeholders/128x128.png">
-                    <br>
-                    <br>
-                    <h5 class="card-title">Categoría 1</h5>
-                    <p class="card-text">Descripción de la Categoría</p>
-                    <a href="#" class="btn btn-primary">Ver Productos</a>
+        <!-- Carga de Categorías -->
+        <?php 
+        foreach($cats_p as $c){
+            echo '
+            <div class="col-sm-3 my-2">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <img src="'.$c['icono_categoria'].'">
+                        <br>
+                        <br>
+                        <h5 class="card-title">'.$c['nombre'].'</h5>
+                        <p class="card-text">'.$c['descripcion'].'</p>
+                        <a href="categorias.php?cat='.$c['id_categoria'].'" class="btn btn-primary">Ver Productos</a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-sm-3 my-2">
-            <div class="card text-center">
-                <div class="card-body">
-                    <img src="https://bulma.io/images/placeholders/128x128.png">
-                    <br>
-                    <br>
-                    <h5 class="card-title">Categoría 2</h5>
-                    <p class="card-text">Descripción de la Categoría</p>
-                    <a href="#" class="btn btn-primary">Ver Productos</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-3 my-2">
-            <div class="card text-center">
-                <div class="card-body">
-                    <img src="https://bulma.io/images/placeholders/128x128.png">
-                    <br>
-                    <br>
-                    <h5 class="card-title">Categoría 3</h5>
-                    <p class="card-text">Descripción de la Categoría</p>
-                    <a href="#" class="btn btn-primary">Ver Productos</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-3 my-2">
-            <div class="card text-center">
-                <div class="card-body">
-                    <img src="https://bulma.io/images/placeholders/128x128.png">
-                    <br>
-                    <br>
-                    <h5 class="card-title">Categoría 4</h5>
-                    <p class="card-text">Descripción de la Categoría</p>
-                    <a href="#" class="btn btn-primary">Ver Productos</a>
-                </div>
-            </div>
-        </div>
+            ';
+        }
+        ?>
     </div>
     <div class="my-5"></div>
     <div class="row">
@@ -194,66 +169,30 @@ require_once("includes/menu_principal.php");
         </div>
     </div>
     <div class="row justify-content-md-center">
-        <div class="col-sm-3 my-2">
-            <div class="card" style="width: 18rem;">
-                <div class="card-header">
-                    Categoría Principal
+        <!-- Carga de todas las categorías y subcategorías -->
+        <?php
+        foreach($cats as $c){
+            echo '
+            <div class="col-sm-3 my-2">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-header">
+                        <a class="font-weight-bold text-dark" href="categorias.php?cat='.$c['id_categoria'].'">'.$c['nombre'].'</a>
+                    </div>
+                    <ul class="list-group list-group-flush">
+            ';
+            $sub_cat = $objBD->leer("sub_categoria","*",array("id_categoria" => $c['id_categoria']));
+            foreach($sub_cat as $sc){
+            echo '
+                        <li class="list-group-item"><a class="text-dark" href="sub_categorias.php?cat='.$sc['id_subcategoria'].'">'.$sc['nombre'].'</a></li>
+            ';  
+            }
+            echo '
+                    </ul>
                 </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Subcategoria 1</li>
-                    <li class="list-group-item">Subcategoria 2</li>
-                    <li class="list-group-item">Subcategoria 3</li>
-                    <li class="list-group-item">Subcategoria 4</li>
-                    <li class="list-group-item">Subcategoria 5</li>
-                    <li class="list-group-item">Subcategoria 6</li>
-                </ul>
             </div>
-        </div>
-        <div class="col-sm-3 my-2">
-            <div class="card" style="width: 18rem;">
-                <div class="card-header">
-                    Categoría Principal
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Subcategoria 1</li>
-                    <li class="list-group-item">Subcategoria 2</li>
-                    <li class="list-group-item">Subcategoria 3</li>
-                    <li class="list-group-item">Subcategoria 4</li>
-                    <li class="list-group-item">Subcategoria 5</li>
-                    <li class="list-group-item">Subcategoria 6</li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-sm-3 my-2">
-            <div class="card" style="width: 18rem;">
-                <div class="card-header">
-                    Categoría Principal
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Subcategoria 1</li>
-                    <li class="list-group-item">Subcategoria 2</li>
-                    <li class="list-group-item">Subcategoria 3</li>
-                    <li class="list-group-item">Subcategoria 4</li>
-                    <li class="list-group-item">Subcategoria 5</li>
-                    <li class="list-group-item">Subcategoria 6</li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-sm-3 my-2">
-            <div class="card" style="width: 18rem;">
-                <div class="card-header">
-                    Categoría Principal
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Subcategoria 1</li>
-                    <li class="list-group-item">Subcategoria 2</li>
-                    <li class="list-group-item">Subcategoria 3</li>
-                    <li class="list-group-item">Subcategoria 4</li>
-                    <li class="list-group-item">Subcategoria 5</li>
-                    <li class="list-group-item">Subcategoria 6</li>
-                </ul>
-            </div>
-        </div>
+            ';
+        }
+        ?>
     </div>
 </div>
 <?php

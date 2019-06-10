@@ -17,7 +17,7 @@ class baseDatos {
         }
     }
 
-    public function leer($tabla,$campos,$condicion = null){
+    public function leer($tabla,$campos,$condicion = null,$criterio = null){
         try {
             $sQuery = "select $campos from $tabla where ";
             $aCondiciones = array();
@@ -26,12 +26,21 @@ class baseDatos {
                     $aCondiciones[] = $k."= :".$k;
                 }
                 $cond = implode(" and ",$aCondiciones);
+                if($criterio != null){
+                    $query = $this->dbh->prepare($sQuery.$cond." ".$criterio);
+                }else{
                 $query = $this->dbh->prepare($sQuery.$cond);
+
+                }
                 foreach($condicion as $k => &$v){
                     $query->bindParam(":".$k,$v);
                 }
             }else{
-                $query = $this->dbh->prepare("select $campos from $tabla");
+                if($criterio != null){
+                    $query = $this->dbh->prepare("select $campos from $tabla"." ".$criterio);
+                }else{
+                    $query = $this->dbh->prepare("select $campos from $tabla");
+                }
             }
             $query->execute();
             $arrResultados = array();

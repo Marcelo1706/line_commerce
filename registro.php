@@ -45,7 +45,7 @@ require_once("includes/header.php");
                         <div class="col-sm-6">
                             <a onclick="siguiente_cuadro('cliente')">
                                 <div class="card card-container bg-primary text-center">
-                                    <img src="https://bulma.io/images/placeholders/128x128.png">
+                                    <img src="/line_commerce/img/comprar.png" height="128" width="203">
                                     <br>
                                     <br>
                                     <h5 class="card-title text-light">Comprar Productos</h5>
@@ -55,7 +55,7 @@ require_once("includes/header.php");
                         <div class="col-sm-6">
                             <a onclick="siguiente_cuadro('negocio')">
                                 <div class="card card-container bg-primary text-center">
-                                    <img src="https://bulma.io/images/placeholders/128x128.png">
+                                    <img src="/line_commerce/img/vender.png" height="128" width="203">
                                     <br>
                                     <br>
                                     <h5 class="card-title text-light">Vender Productos</h5>
@@ -75,7 +75,7 @@ require_once("includes/header.php");
                 <div class="container">
                     <div class="row justify-content-md-center">
                     <div class="col-sm-12">
-                            <form>
+                            <form action="" method="post" id="form_cliente">
                                 <div class="form-group">
                                     <label for="usuario_c">Usuario</label>
                                     <input type="text" class="form-control" id="usuario_c" placeholder="Nombre de Usuario" maxlength="50" required>
@@ -102,7 +102,7 @@ require_once("includes/header.php");
                                 </div>
                                 <div class="form-group">
                                     <label for="telefono_c">Teléfono</label>
-                                    <input type="text" class="form-control" id="telefono_c" placeholder="Teléfono" maxlength="15" required>
+                                    <input type="text" class="form-control" id="telefono_c" placeholder="Teléfono" maxlength="8" pattern="[0-9]{8}" required>
                                 </div>
                                 <div class="form-group">
                                     <input type="submit" value="Registrarse" name="enviar" class="btn btn-primary btn-block">
@@ -126,7 +126,7 @@ require_once("includes/header.php");
                 <div class="container">
                     <div class="row justify-content-md-center">
                         <div class="col-sm-12">
-                            <form>
+                            <form action="" method="post" id="form_negocio">
                                 <div class="form-group">
                                     <label for="usuario">Usuario</label>
                                     <input type="text" class="form-control" id="usuario" placeholder="Nombre de Usuario" maxlength="50" required>
@@ -149,7 +149,7 @@ require_once("includes/header.php");
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Correo Electrónico</label>
-                                    <input type="mail" class="form-control" id="email" placeholder="alguien@example.com" maxlength="100" required>
+                                    <input type="email" class="form-control" id="email" placeholder="alguien@example.com" maxlength="100" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="direccion">Dirección del Negocio</label>
@@ -157,7 +157,7 @@ require_once("includes/header.php");
                                 </div>
                                 <div class="form-group">
                                     <label for="telefono">Teléfono</label>
-                                    <input type="text" class="form-control" id="telefono" placeholder="Teléfono" maxlength="15" required>
+                                    <input type="text" class="form-control" id="telefono" placeholder="Teléfono" maxlength="8" pattern="[0-9]{8}" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="foto">Foto de Perfil</label>
@@ -188,6 +188,116 @@ require_once("includes/scripts.php");
     $(document).ready(function() {
         $("#registro_cliente").hide();
         $("#registro_negocio").hide();
+
+        //Validación y submit de form cliente
+        $("#form_cliente").on("submit",function(e){
+            e.preventDefault();
+            
+            //Campos
+            var usuario = $("#usuario_c").val();
+            var pass1 = $("#password1_c").val();
+            var pass2 = $("#password2_c").val();
+            var nombres = $("#nombres_c").val();
+            var apellidos = $("#apellidos_c").val();
+            var email = $("#email_c").val();
+            var telefono = $("#telefono_c").val();
+
+            //Verificar si las claves coinciden
+            if(pass1 != pass2){
+                swal({
+                    icon: "warning",
+                    text: "Las contraseñas no coinciden"
+                })
+            }else{
+                //Enviar el form
+                fd = new FormData();
+                fd.append("usuario",usuario)
+                fd.append("clave",pass2)
+                fd.append("correo_electronico",email)
+                fd.append("nombre",nombres)
+                fd.append("apellido",apellidos)
+                fd.append("telefono",telefono)
+                $.ajax({
+                    url: 'admin/ajax.php?request=registrar_cliente',
+                    type: 'post',
+                    data: fd,
+                    contentType: false,
+                    processData: false,
+                    success: function(response){
+                        if(response != 0){
+                            swal({
+                                icon: "success",
+                                text: "Usuario registrado correctamente"
+                            }).then((value) => {
+                                window.location = "index.php"
+                            })
+                        }else{
+                            swal({
+                                icon: "warning",
+                                text: "Ocurrió un error al registrar el usuario"
+                            })
+                        }
+                    },
+                });
+            }
+        })
+
+        //Validacion y registro del form negocio
+        $("#form_negocio").on("submit",function(e){
+            e.preventDefault();
+            
+            //Campos
+            var usuario = $("#usuario").val();
+            var pass1 = $("#password1").val();
+            var pass2 = $("#password2").val();
+            var negocio = $("#negocio").val();
+            var descripcion = $("#descripcion").val();
+            var email = $("#email").val();
+            var direccion = $("#direccion").val();
+            var telefono = $("#telefono").val();
+            var foto_perfil = $("#foto")[0].files[0];
+
+            //Validacion de las claves
+            if(pass1 != pass2){
+                swal({
+                    icon: "warning",
+                    text: "Las contraseñas no coinciden"
+                })
+            }else{
+                //Enviar el form
+                fd = new FormData();
+                fd.append("usuario",usuario)
+                fd.append("clave",pass2)
+                fd.append("nombre_negocio",negocio)
+                fd.append("descripcion",descripcion)
+                fd.append("correo_electronico",email)
+                fd.append("telefono",telefono)
+                fd.append("direccion",direccion)
+                fd.append("foto_perfil",foto_perfil)
+                $.ajax({
+                    url: 'admin/ajax.php?request=registrar_negocio',
+                    type: 'post',
+                    data: fd,
+                    contentType: false,
+                    processData: false,
+                    success: function(response){
+                        if(response != 0){
+                            swal({
+                                icon: "success",
+                                text: "Usuario agregado correctamente"
+                            }).then((value) => {
+                                window.location = "index.php"
+                            })
+                        }else{
+                            swal({
+                                icon: "warning",
+                                text: "Ocurrió un error al insertar el usuario"
+                            })
+                        }
+                    }
+                });
+            }
+        })
     })
     function siguiente_cuadro(cuadro){
         switch(cuadro){
